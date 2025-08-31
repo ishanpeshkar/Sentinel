@@ -1,0 +1,132 @@
+.review-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.panel-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--accent-calm-gray);
+    background-color: var(--white-color);
+}
+
+.panel-header h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.panel-header p {
+    margin: 0;
+    color: var(--text-light-gray);
+}
+
+.review-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: var(--background-light-gray);
+}
+
+.review-card {
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-light);
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    color: #f0c419; /* Gold color for stars */
+    margin-bottom: 0.5rem;
+}
+
+.review-prompt {
+    font-weight: bold;
+    color: var(--primary-deep-blue);
+    margin-bottom: 0.5rem;
+    background-color: #e7f0f7;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.review-actions button {
+    background: none;
+    border: 1px solid var(--accent-calm-gray);
+    border-radius: 15px;
+    padding: 0.25rem 0.75rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.review-actions button:hover {
+    background-color: #f0f0f0;
+}
+
+.review-submission-area {
+    padding: 1.5rem;
+    background: var(--white-color);
+    border-top: 1px solid var(--accent-calm-gray);
+    text-align: center;
+}
+
+.review-submission-area h3 {
+    margin-top: 0;
+}
+
+.login-prompt .login-btn,
+.login-prompt .signup-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.login-prompt .login-btn {
+  background-color: transparent;
+  color: var(--primary-deep-blue);
+  border: 2px solid var(--primary-deep-blue);
+}
+
+.login-prompt .login-btn:hover {
+  background-color: var(--primary-deep-blue);
+  color: var(--white-color);
+}
+
+.login-prompt .signup-btn {
+  background-color: var(--primary-deep-blue);
+  color: var(--white-color);
+}
+
+.login-prompt .signup-btn:hover {
+  opacity: 0.9;
+}
+
+.add-review-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--white-color);
+    background-color: var(--primary-deep-blue);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-review-btn:hover {
+    opacity: 0.9;
+}

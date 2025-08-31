@@ -1,0 +1,77 @@
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #e7e7e7;
+  box-shadow: 0 2px 4px rgba(255, 251, 251, 0.1);
+  position: sticky;
+  top: 0;
+  border-radius: 10px;
+  /* margin: 50px;
+  margin-left: 250px;
+  margin-right: 250px; */
+  z-index: 1000;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navigation li {
+  margin-left: 2rem;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navigation a:hover {
+  color: #007bff;
+}
+
+.user-actions .login-btn,
+.user-actions .signup-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.user-actions .login-btn {
+  background-color: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.user-actions .login-btn:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.user-actions .signup-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.user-actions .signup-btn:hover {
+  background-color: #0056b3;
+}

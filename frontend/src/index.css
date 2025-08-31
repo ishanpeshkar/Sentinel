@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700&display=swap');
+
+/*
+=============== 
+Variables
+===============
+*/
+:root {
+  --primary-deep-blue: #0056A6;
+  --secondary-fresh-green: #28A745;
+  --alert-bright-red: #FF4136;
+  --accent-calm-gray: #CCCCCC;
+  --background-light-gray: #f8f9fa;
+  --text-dark-gray: #343a40;
+  --text-light-gray: #6c757d;
+  --white-color: #ffffff;
+  --border-radius: 8px;
+  --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --font-family-headings: 'Montserrat', sans-serif;
+  --font-family-body: 'Roboto', sans-serif;
+}
+
+/*
+=============== 
+Global Styles
+===============
+*/
+body {
+  margin: 0;
+  font-family: var(--font-family-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-light-gray);
+  color: var(--text-dark-gray);
+}
+
+main {
+  min-height: calc(100vh - 140px); /* Adjusted for header/footer height */
+}
+
+h1, h2, h3 {
+  font-family: var(--font-family-headings);
+  color: var(--primary-deep-blue);
+}
