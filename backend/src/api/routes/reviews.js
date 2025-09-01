@@ -1,11 +1,14 @@
 const express = require('express');
 const { db } = require('../../config/firebase');
+const axios = require('axios'); // Import axios
 
 const router = express.Router();
 
-// @route   GET api/reviews
-// @desc    Get reviews for a specific geographic area
-// @access  Public
+
+
+// @route   POST api/reviews
+// @desc    Submit a new safety review and analyze its sentiment
+// @access  Public (for now)
 router.get('/', async (req, res) => {
     try {
         const { lat, lng } = req.query;
@@ -55,6 +58,9 @@ router.get('/', async (req, res) => {
 // @route   POST api/reviews
 // @desc    Submit a new safety review
 // ... (The rest of the file remains the same)
+// @route   POST api/reviews
+// @desc    Submit a new safety review and analyze its sentiment
+// @access  Public (for now)
 router.post('/', async (req, res) => {
     try {
         const { rating, prompt, moreInfo, location } = req.body;
@@ -62,6 +68,23 @@ router.post('/', async (req, res) => {
         if (!rating || !prompt || !location || !location.lat || !location.lng) {
             return res.status(400).json({ msg: 'Please provide rating, prompt, and a valid location.' });
         }
+
+        // --- AI Microservice Integration ---
+        let sentimentScore = 0; // Default score
+        const textToAnalyze = `${prompt}. ${moreInfo}`; // Combine prompt and details for analysis
+
+        try {
+            const sentimentResponse = await axios.post('http://127.0.0.1:8000/analyze', {
+                text: textToAnalyze
+            });
+            if (sentimentResponse.data && typeof sentimentResponse.data.score === 'number') {
+                sentimentScore = sentimentResponse.data.score;
+            }
+        } catch (error) {
+            console.error("Error calling sentiment service:", error.message);
+            // Don't block the review if the AI service is down. Just proceed with a neutral score.
+        }
+        // --- End of Integration ---
 
         const newReview = {
             rating: Number(rating),
@@ -73,7 +96,8 @@ router.post('/', async (req, res) => {
             },
             upvotes: 0,
             downvotes: 0,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            sentimentScore: sentimentScore // Store the AI-generated score!
         };
         
         const docRef = await db.collection('reviews').add(newReview);
@@ -84,6 +108,5 @@ router.post('/', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
 
 module.exports = router;
