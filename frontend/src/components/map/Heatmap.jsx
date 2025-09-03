@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
+import CustomHeatmapLayer from './HeatmapLayer'; // Import our new component
 import 'leaflet/dist/leaflet.css';
 import './Heatmap.css';
 
@@ -23,7 +24,7 @@ const Heatmap = ({ onMapClick }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <MapEvents onMapClick={onMapClick} />
-      {/* Heatmap layer will be added here in a future phase */}
+      <CustomHeatmapLayer /> {/* Add the heatmap layer here! */}
     </MapContainer>
   );
 };

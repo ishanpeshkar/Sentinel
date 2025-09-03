@@ -4,10 +4,91 @@ const axios = require('axios'); // Import axios
 
 const router = express.Router();
 
+// @route   GET api/reviews/heatmap
+// @desc    Get all reviews for heatmap generation
+// @access  Public
+router.get('/heatmap', async (req, res) => {
+    try {
+        const reviewsRef = db.collection('reviews');
+        const snapshot = await reviewsRef.get();
 
+        if (snapshot.empty) {
+            return res.json([]);
+        }
 
-// @route   POST api/reviews
-// @desc    Submit a new safety review and analyze its sentiment
+        const heatmapData = [];
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            // We only need the location and sentiment score for the heatmap
+            if (data.location && typeof data.sentimentScore === 'number') {
+                heatmapData.push({
+                    lat: data.location.lat,
+                    lng: data.location.lng,
+                    sentimentScore: data.sentimentScore,
+                });
+            }
+        });
+
+        res.json(heatmapData);
+
+    } catch (err) {
+        console.error("Error fetching heatmap data:", err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   GET api/reviews/summary
+// @desc    Get an AI-generated summary for a specific area
+// @access  Public
+router.get('/summary', async (req, res) => {
+    try {
+        const { lat, lng } = req.query;
+
+        if (!lat || !lng) {
+            return res.status(400).json({ msg: 'Latitude and Longitude query parameters are required.' });
+        }
+        
+        // --- Step 1: Fetch all reviews for the area (re-using logic from Phase 4) ---
+        const centerLat = parseFloat(lat);
+        const centerLng = parseFloat(lng);
+        const latOffset = 0.0045; // ~500 meters
+        const lngOffset = 0.0045;
+        
+        const reviewsRef = db.collection('reviews');
+        const snapshot = await reviewsRef
+            .where('location.lat', '>=', centerLat - latOffset)
+            .where('location.lat', '<=', centerLat + latOffset)
+            .get();
+
+        const reviewTexts = [];
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.location.lng >= (centerLng - lngOffset) && data.location.lng <= (centerLng + lngOffset)) {
+                // Combine the prompt and more info for better context
+                reviewTexts.push(`${data.prompt}. ${data.moreInfo || ''}`);
+            }
+        });
+
+        if (reviewTexts.length < 3) { // Don't generate summary for too few reviews
+            return res.json({ summary: "Not enough reviews in this area to generate a safety summary." });
+        }
+
+        // --- Step 2: Call the Summarization Microservice ---
+        const summaryResponse = await axios.post('http://127.0.0.1:8001/summarize', {
+            reviews: reviewTexts
+        });
+
+        res.json({ summary: summaryResponse.data.summary });
+
+    } catch (err) {
+        console.error("Error generating summary:", err.message);
+        // Don't send a server error, just a friendly message
+        res.status(500).json({ summary: "Could not generate a summary at this time." });
+    }
+});
+
+// @route   GET api/reviews
+// @desc    Fetch reviews based on location
 // @access  Public (for now)
 router.get('/', async (req, res) => {
     try {
@@ -54,10 +135,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-
-// @route   POST api/reviews
-// @desc    Submit a new safety review
-// ... (The rest of the file remains the same)
 // @route   POST api/reviews
 // @desc    Submit a new safety review and analyze its sentiment
 // @access  Public (for now)

@@ -4,12 +4,9 @@ import './ReviewPanel.css';
 import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-// 1. RECEIVE `onAddReviewClick` as a prop from the parent (MapPage)
-const ReviewPanel = ({ selectedLocation, reviews, isLoading, onAddReviewClick }) => {
+// 1. RECEIVE `onAddReviewClick`, `summary`, and `isSummaryLoading` as props from the parent (MapPage)
+const ReviewPanel = ({ selectedLocation, reviews, isLoading, summary, isSummaryLoading, onAddReviewClick }) => {
     const { currentUser } = useAuth(); // Use the context
-    
-    // 2. REMOVE this incorrect line:
-    // const onAddReviewClick = () => {}; 
 
     return (
         <div className="review-panel">
@@ -17,6 +14,18 @@ const ReviewPanel = ({ selectedLocation, reviews, isLoading, onAddReviewClick })
                 <h2>{selectedLocation ? selectedLocation.name : "Click the Map"}</h2>
                 <p>{selectedLocation ? "Safety Reviews" : "Select an area to see what people are saying."}</p>
             </div>
+
+            {/* --- NEW SUMMARY SECTION --- */}
+            {selectedLocation && (
+                <div className="summary-section">
+                    <h4>AI-Generated Area Summary</h4>
+                    {isSummaryLoading ? (
+                        <p className="loading-text">Generating summary...</p>
+                    ) : (
+                        <p className="summary-text">{summary}</p>
+                    )}
+                </div>
+            )}
             
             <div className="review-list">
                 {isLoading && <p className="loading-text">Loading reviews...</p>}

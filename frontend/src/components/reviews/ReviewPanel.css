@@ -130,3 +130,23 @@
 .add-review-btn:hover {
     opacity: 0.9;
 }
+
+.summary-section {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--accent-calm-gray);
+    background-color: #e7f0f7; /* A light blue to stand out */
+}
+
+.summary-section h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--primary-deep-blue);
+    font-family: var(--font-family-headings);
+}
+
+.summary-text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-dark-gray);
+}
