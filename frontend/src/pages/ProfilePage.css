@@ -1,0 +1,63 @@
+.profile-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
+
+.user-email {
+    color: var(--text-light-gray);
+    margin-bottom: 1.5rem;
+}
+
+.my-reviews-list {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.review-card-profile {
+    border: 1px solid var(--accent-calm-gray);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+}
+
+.review-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    color: #f0c419;
+}
+
+.review-date {
+    font-size: 0.85rem;
+    color: var(--text-light-gray);
+}
+
+.review-status {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.review-status span {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    color: var(--white-color);
+}
+
+.status-approved .review-status span {
+    background-color: var(--secondary-fresh-green);
+}
+
+.status-pending_moderation .review-status span {
+    background-color: #ffc107; /* A warning yellow */
+}

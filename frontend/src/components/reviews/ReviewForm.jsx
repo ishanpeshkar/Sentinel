@@ -1,64 +1,88 @@
-import React, { useState } from 'react';
-import './ReviewForm.css';
+import React, { useState } from "react";
+import { useAuth } from "../../context/AuthContext"; // <-- STEP 1: IMPORT
+import "./ReviewForm.css";
 
 const PRESET_PROMPTS = [
-  'Good lighting',
-  'Felt unsafe',
-  'Lots of people around',
-  'Quiet and deserted',
-  'Visible police presence',
-  'Poorly maintained area',
+  "Good lighting",
+  "Felt unsafe",
+  "Lots of people around",
+  "Quiet and deserted",
+  "Visible police presence",
+  "Poorly maintained area",
+  "Clean and well-kept",
+  "Friendly community",
+  "High traffic area",
+  "Isolated spot",
 ];
 
 const ReviewForm = ({ selectedLocation, onReviewAdded }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
-  const [prompt, setPrompt] = useState('');
-  const [moreInfo, setMoreInfo] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [prompt, setPrompt] = useState("");
+  const [moreInfo, setMoreInfo] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const { currentUser } = useAuth(); // <-- STEP 2: GET THE CURRENT USER
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
-    if (rating === 0 || prompt === '') {
-      setError('Rating and a safety prompt are required.');
+    // --- STEP 3: THE FIX ---
+    if (!currentUser) {
+        setError('You must be logged in to submit a review.');
+        return;
+    }
+
+    if (rating === 0 || prompt === "") {
+      setError("Rating and a safety prompt are required.");
       return;
     }
 
-    // In a real app, 'location' would come from map state
-    const reviewData = {
-      rating,
-      prompt,
-      moreInfo,
-      location: selectedLocation.coords,
-    };
+    
 
     try {
-      const response = await fetch('http://localhost:5000/api/reviews', {
-        method: 'POST',
+      // Get the Firebase Auth token for the current user.
+      const token = await currentUser.getIdToken();
+
+      // In a real app, 'location' would come from map state
+      const reviewData = {
+        rating,
+        prompt,
+        moreInfo,
+        location: selectedLocation.coords,
+      };
+
+
+      const response = await fetch("http://localhost:5000/api/reviews", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          // Include the token in the Authorization header.
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(reviewData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit review');
+        // Try to get a more specific error message from the backend
+          const errorData = await response.json();
+          throw new Error(errorData.msg || 'Failed to submit review');
       }
 
       const newReview = await response.json();
       onReviewAdded(newReview); // Pass the new review up to MapPage
 
-      setSuccess('Thank you! Your review has been submitted.');
+      setSuccess("Thank you! Your review has been submitted.");
       // Reset form
       setRating(0);
-      setPrompt('');
-      setMoreInfo('');
-    } catch (err) {
-      setError(err.message || 'An error occurred. Please try again.');
+      setPrompt("");
+      setMoreInfo("");
+    }
+    catch (err) {
+      setError(err.message || "An error occurred. Please try again.");
     }
   };
 
@@ -77,8 +101,8 @@ const ReviewForm = ({ selectedLocation, onReviewAdded }) => {
                 key={ratingValue}
                 className={
                   ratingValue <= (hoverRating || rating)
-                    ? 'star-filled'
-                    : 'star-empty'
+                    ? "star-filled"
+                    : "star-empty"
                 }
                 onClick={() => setRating(ratingValue)} // <-- THIS WAS THE FIX
                 onMouseEnter={() => setHoverRating(ratingValue)}
@@ -93,8 +117,15 @@ const ReviewForm = ({ selectedLocation, onReviewAdded }) => {
 
       <div className="form-group">
         <label htmlFor="prompt">What did you notice?*</label>
-        <select id="prompt" value={prompt} onChange={(e) => setPrompt(e.target.value)} required>
-          <option value="" disabled>Select a prompt...</option>
+        <select
+          id="prompt"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          required
+        >
+          <option value="" disabled>
+            Select a prompt...
+          </option>
           {PRESET_PROMPTS.map((p) => (
             <option key={p} value={p}>
               {p}

@@ -1,8 +1,13 @@
 const express = require('express');
 const { db } = require('../../config/firebase');
 const axios = require('axios'); // Import axios
+const authMiddleware = require('../middleware/auth'); // Import the middleware
 
 const router = express.Router();
+
+
+
+
 
 // @route   GET api/reviews/heatmap
 // @desc    Get all reviews for heatmap generation
@@ -36,6 +41,12 @@ router.get('/heatmap', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
+
+
+
+
 
 // @route   GET api/reviews/summary
 // @desc    Get an AI-generated summary for a specific area
@@ -87,6 +98,13 @@ router.get('/summary', async (req, res) => {
     }
 });
 
+
+
+
+
+
+
+
 // @route   GET api/reviews
 // @desc    Fetch reviews based on location
 // @access  Public (for now)
@@ -114,6 +132,7 @@ router.get('/', async (req, res) => {
         // Query Firestore for reviews within the bounding box
         const reviewsRef = db.collection('reviews');
         const snapshot = await reviewsRef
+            .where('status', '==', 'approved') // <-- THE CRITICAL FILTER
             .where('location.lat', '>=', lowerLat)
             .where('location.lat', '<=', upperLat)
             .get();
@@ -135,33 +154,64 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+
+
+
+
+
+
 // @route   POST api/reviews
 // @desc    Submit a new safety review and analyze its sentiment
 // @access  Public (for now)
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware,async (req, res) => {
     try {
         const { rating, prompt, moreInfo, location } = req.body;
 
         if (!rating || !prompt || !location || !location.lat || !location.lng) {
             return res.status(400).json({ msg: 'Please provide rating, prompt, and a valid location.' });
         }
-
-        // --- AI Microservice Integration ---
-        let sentimentScore = 0; // Default score
+        
         const textToAnalyze = `${prompt}. ${moreInfo}`; // Combine prompt and details for analysis
 
+
+
+        // --- Step 1: Content Moderation ---
+        let reviewStatus = 'approved'; // Default status
         try {
-            const sentimentResponse = await axios.post('http://127.0.0.1:8000/analyze', {
+            const moderationResponse = await axios.post('http://127.0.0.1:8002/moderate', {
                 text: textToAnalyze
             });
-            if (sentimentResponse.data && typeof sentimentResponse.data.score === 'number') {
-                sentimentScore = sentimentResponse.data.score;
+            if (moderationResponse.data && moderationResponse.data.is_toxic) {
+                reviewStatus = 'pending_moderation';
+                console.log(`Content flagged as toxic. Status set to: ${reviewStatus}`);
             }
         } catch (error) {
-            console.error("Error calling sentiment service:", error.message);
-            // Don't block the review if the AI service is down. Just proceed with a neutral score.
+            console.error("Error calling moderation service:", error.message);
+            // If the service is down, we approve by default to not block users.
         }
-        // --- End of Integration ---
+        // --- End of Moderation ---
+
+
+
+        
+        // --- Step 2: Sentiment Analysis (only if approved) ---
+        let sentimentScore = 0;  // Default score
+        if (reviewStatus === 'approved') {
+            try {
+                const sentimentResponse = await axios.post('http://127.0.0.1:8000/analyze', {
+                    text: textToAnalyze
+                });
+                if (sentimentResponse.data && typeof sentimentResponse.data.score === 'number') {
+                    sentimentScore = sentimentResponse.data.score;
+                }
+            } catch (error) {
+                console.error("Error calling sentiment service:", error.message); // Don't block the review if the AI service is down. Just proceed with a neutral score.
+            }
+        }
+        // --- End of Sentiment Analysis ---
+
+
 
         const newReview = {
             rating: Number(rating),
@@ -174,12 +224,44 @@ router.post('/', async (req, res) => {
             upvotes: 0,
             downvotes: 0,
             createdAt: new Date().toISOString(),
-            sentimentScore: sentimentScore // Store the AI-generated score!
+            sentimentScore: sentimentScore, // Store the AI-generated score!
+            status: reviewStatus, // Add the new status field!
+            userId: req.user.uid // <-- ADD THIS LINE
         };
         
         const docRef = await db.collection('reviews').add(newReview);
         res.status(201).json({ id: docRef.id, ...newReview });
 
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
+
+
+// @route   GET api/reviews/my-reviews
+// @desc    Get all reviews submitted by the logged-in user
+// @access  Private
+router.get('/my-reviews', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.user.uid; // Get user ID from the decoded token
+
+        const reviewsRef = db.collection('reviews');
+        const snapshot = await reviewsRef.where('userId', '==', userId).orderBy('createdAt', 'desc').get();
+
+        if (snapshot.empty) {
+            return res.json([]);
+        }
+
+        const userReviews = [];
+        snapshot.forEach(doc => {
+            userReviews.push({ id: doc.id, ...doc.data() });
+        });
+
+        res.json(userReviews);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

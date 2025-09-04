@@ -9,3 +9,12 @@ Services :
 - cd summarization - Activate virtual env
                     "venv\Scripts\activate"
                     "uvicorn main:app --reload --port 8001"
+
+- cd moderation - Activate virtual env
+                    "venv\Scripts\activate"
+                    "uvicorn main:app --reload --port 8002"
+
+        (Note : After executing this step, we have to manually type "approve" in the firstore database in place of "pending_moderation". Only then it will show on the webpage.)
+
+
+- 

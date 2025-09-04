@@ -80,7 +80,15 @@ Phase 8: GenAI Summarization Microservice
 
 
 
-Phase 9: Content Moderation Service: Build a service to automatically flag and hide toxic or inappropriate reviews.
+Phase 9: Content Moderation Service: 
+        - Build a service to automatically flag and hide toxic or inappropriate reviews.
+        - The reviews are flagged as  "status = "pending_moderation" "  in the firestore database.
+        - We have to manually change this to   "status = "approved""  in the database .
+        
+
+
+
+
 Phase 10: User Profiles & Review Management: Allow users to view and manage their own submitted reviews on a profile page.
 Phase 11: Functional Upvoting/Downvoting: Implement the backend logic to make the upvote and downvote buttons on reviews work.
 Phase 12: Real-Time Notifications Service: Alert a user via a notification when they enter an area with a low average safety score.
