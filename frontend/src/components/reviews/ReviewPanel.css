@@ -71,6 +71,29 @@
     background-color: #f0f0f0;
 }
 
+/* ... existing styles for .review-actions button ... */
+.review-actions .vote-btn {
+    background: none;
+    border: 1px solid var(--accent-calm-gray);
+    border-radius: 15px;
+    padding: 0.25rem 0.75rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.review-actions .vote-btn:hover {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+}
+
+/* This is the new style for an active vote */
+.review-actions .vote-btn.active {
+    background-color: var(--primary-deep-blue);
+    color: var(--white-color);
+    border-color: var(--primary-deep-blue);
+}
+
 .review-submission-area {
     padding: 1.5rem;
     background: var(--white-color);
@@ -149,4 +172,4 @@
     font-size: 0.9rem;
     line-height: 1.5;
     color: var(--text-dark-gray);
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

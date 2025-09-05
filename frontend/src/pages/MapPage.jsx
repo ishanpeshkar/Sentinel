@@ -73,6 +73,7 @@ const MapPage = () => {
         <ReviewPanel
           selectedLocation={selectedLocation}
           reviews={reviews}
+          setReviews={setReviews} // <-- PASS THE SETTER FUNCTION
           isLoading={isLoading}
           summary={summary}
           isSummaryLoading={isSummaryLoading}

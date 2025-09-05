@@ -1,6 +1,7 @@
 const express = require('express');
 const { db } = require('../../config/firebase');
 const axios = require('axios'); // Import axios
+const { FieldValue } = require('firebase-admin/firestore'); // Import FieldValue
 const authMiddleware = require('../middleware/auth'); // Import the middleware
 
 const router = express.Router();
@@ -237,6 +238,83 @@ router.post('/', authMiddleware,async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
+
+
+
+
+
+
+
+// @route   POST api/reviews/:id/vote
+// @desc    Upvote or downvote a review
+// @access  Private
+router.post('/:id/vote', authMiddleware, async (req, res) => {
+    const { voteType } = req.body; // 'upvote' or 'downvote'
+    const reviewId = req.params.id;
+    const userId = req.user.uid;
+
+    if (!['upvote', 'downvote'].includes(voteType)) {
+        return res.status(400).json({ msg: 'Invalid vote type.' });
+    }
+
+    const reviewRef = db.collection('reviews').doc(reviewId);
+
+    try {
+        await db.runTransaction(async (transaction) => {
+            const reviewDoc = await transaction.get(reviewRef);
+            if (!reviewDoc.exists) {
+                throw new Error('Review not found');
+            }
+
+            const data = reviewDoc.data();
+            const upvotedBy = data.upvotedBy || [];
+            const downvotedBy = data.downvotedBy || [];
+
+            const isUpvoted = upvotedBy.includes(userId);
+            const isDownvoted = downvotedBy.includes(userId);
+
+            let updates = {};
+
+            if (voteType === 'upvote') {
+                if (isUpvoted) {
+                    // User is undoing their upvote
+                    updates.upvotedBy = FieldValue.arrayRemove(userId);
+                } else {
+                    // User is adding an upvote
+                    updates.upvotedBy = FieldValue.arrayUnion(userId);
+                    if (isDownvoted) {
+                        // If they had previously downvoted, remove the downvote
+                        updates.downvotedBy = FieldValue.arrayRemove(userId);
+                    }
+                }
+            } else if (voteType === 'downvote') {
+                if (isDownvoted) {
+                    // User is undoing their downvote
+                    updates.downvotedBy = FieldValue.arrayRemove(userId);
+                } else {
+                    // User is adding a downvote
+                    updates.downvotedBy = FieldValue.arrayUnion(userId);
+                    if (isUpvoted) {
+                        // If they had previously upvoted, remove the upvote
+                        updates.upvotedBy = FieldValue.arrayRemove(userId);
+                    }
+                }
+            }
+            transaction.update(reviewRef, updates);
+        });
+
+        res.json({ msg: 'Vote recorded successfully.' });
+    } catch (error) {
+        console.error('Vote transaction failed: ', error);
+        res.status(500).json({ msg: error.message || 'Server Error' });
+    }
+});
+
+
+
+
 
 
 

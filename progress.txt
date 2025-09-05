@@ -90,6 +90,10 @@ Phase 9: Content Moderation Service:
 
 
 Phase 10: User Profiles & Review Management: Allow users to view and manage their own submitted reviews on a profile page.
+        - created a "My Profile" page where a logged-in user can see a list of all the reviews they have personally submitted. This requires creating our first protected backend route.
+
+
+        
 Phase 11: Functional Upvoting/Downvoting: Implement the backend logic to make the upvote and downvote buttons on reviews work.
 Phase 12: Real-Time Notifications Service: Alert a user via a notification when they enter an area with a low average safety score.
 Phase 13: Containerization with Docker: Package each service (frontend, backend, AI) into Docker containers for easy deployment.
