@@ -1,4 +1,4 @@
-# Sentinel - AI-Powered Safety Heatmap Platform
+<!-- # Sentinel - AI-Powered Safety Heatmap Platform
 
 **Sentinel** is a full-stack, microservice-based web application designed to provide real-time, crowd-sourced safety information. By leveraging AI for sentiment analysis and content moderation, Sentinel generates dynamic safety heatmaps, allowing users to make informed decisions about their environment.
 
@@ -28,12 +28,12 @@ This project is built using a modern, scalable **microservices architecture**. T
 *(A simple diagram can greatly enhance your README. You can create one easily using tools like [Excalidraw](https://excalidraw.com/) or Mermaid syntax.)*
 ```mermaid
 graph TD
-    A[User Browser] -->|HTTP/S| B(React Frontend);
-    B -->|API Calls| C(Node.js Backend Gateway);
-    C -->|CRUD| D(Firebase Firestore DB);
-    C -->|Analysis Req| E(Sentiment Inference Service);
-    C -->|Summary Req| F(Summarization Service);
-    C -->|Moderation Req| G(Moderation Service);
+    A[User Browser] --|HTTP/S| B(React Frontend);
+    B --|API Calls| C(Node.js Backend Gateway);
+    C --|CRUD| D(Firebase Firestore DB);
+    C --|Analysis Req| E(Sentiment Inference Service);
+    C --|Summary Req| F(Summarization Service);
+    C --|Moderation Req| G(Moderation Service);
 
     subgraph "Frontend"
         B
@@ -124,4 +124,205 @@ This project is under active development. Future phases will include:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. -->
+
+# 🔐 Sentinel – AI-Powered Safety Heatmap Platform
+
+**Sentinel** is a **full-stack, microservice-based web application** that provides **real-time, crowd-sourced safety insights**. By combining **AI-driven sentiment analysis**, **Generative AI summaries**, and **dynamic geospatial visualization**, Sentinel empowers users to make **safer, smarter decisions** about their environment.
+
+> 🌟 **A portfolio-ready capstone project integrating frontend, backend, AI/ML, and cloud-ready architecture with real-world impact.**
+
+---
+
+## 🎥 Live Demo
+![Sentinel Demo](https://via.placeholder.com/600x300.png?text=GIF+Demo+Coming+Soon)
+> _Once you record a short GIF of the live app (login → search/pin → submit review → heatmap update → AI summary → moderation) replace this placeholder with the actual GIF._
+
+---
+
+## 💡 Motivation & Impact
+
+Sentinel was built to **bridge the gap between technology and community safety**, showcasing an end-to-end integration of **frontend, backend, and AI/ML**.
+
+- **AI/ML-Powered Insights:**
+  - **Sentiment Analysis:** Converts user reviews into a **quantitative sentiment score** (+1 = positive, -1 = negative).
+  - **Generative AI Summaries:** Aggregates reviews to create **concise, human-readable summaries** of safety at any location.
+
+- **Community & Public Utility:**
+  - Provides **real-time safety maps** for citizens.
+  - Includes **moderation mechanisms** to ensure safe, accurate community contributions.
+  - Potential for **government partnerships** for urban safety and law enforcement surveillance.
+
+- **Portfolio Significance:**
+  - Demonstrates full-stack development (React + Node.js + Firebase) and AI integration.
+  - Highlights **real-world problem-solving** and **social impact potential**.
+
+> _Sentinel turns crowdsourced data into actionable safety intelligence._
+
+---
+
+## 🚀 Features
+
+### 🌍 Map & Heatmap
+- Users can **search or pin locations** on the map.
+- Submit **safety reviews** with:
+  - Star rating (out of 5)
+  - Pre-filled prompts + additional comments
+- Heatmap color-coded by sentiment score:
+  - **Green** = positive
+  - **Red** = negative
+
+### 🤖 AI-Powered Microservices
+- **Sentiment-Inference Service:** ML model scores reviews from +1 to -1.
+- **Summarization Service:** Gen AI summarizes all reviews for the selected area.
+- **Moderation Service:** Detects toxic or inappropriate content; flags reviews as `pending_moderation` until approved.
+
+### 📝 Community & User Features
+- Secure user login with **Firebase Authentication**.
+- Personalized **user profiles** with review history and moderation status.
+- **Upvote/Downvote system** to highlight helpful reviews.
+
+---
+
+## 🛠 Architecture & Tech Stack
+
+### 🔗 System Architecture (Microservices)
+```mermaid
+flowchart TD
+    subgraph USER
+        A[Login / Register] --> B[Search or Pin Location on Map]
+        B --> C[Submit Review (Stars + Comments + Pre-filled Prompts)]
+    end
+
+    subgraph BACKEND
+        C --> D[Backend API: Node.js + Express]
+        D --> E[Firebase Firestore (Save Review & User Data)]
+        D --> F[Moderation Service: FastAPI + Toxicity Detection]
+        D --> G[Sentiment Analysis Service: FastAPI + ML Model]
+        D --> H[Summarization Service: FastAPI + Gen AI]
+    end
+
+    F --> I{Toxic?}
+    I -- Yes --> J[Flag as pending_moderation → Not visible to public]
+    I -- No --> K[Approved & Visible]
+
+    G --> L[Generate Sentiment Score (-1 to +1)]
+    L --> M[Update Heatmap (Green = Positive, Red = Negative)]
+
+    H --> N[Generate AI Summary for Location]
+    
+    style A fill:#E3F2FD,stroke:#42A5F5,stroke-width:2px
+    style B fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px
+    style C fill:#E8F5E9,stroke:#43A047,stroke-width:2px
+    style D fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px
+    style F fill:#FFEBEE,stroke:#E53935,stroke-width:2px
+    style G fill:#E1F5FE,stroke:#039BE5,stroke-width:2px
+    style H fill:#FFFDE7,stroke:#FDD835,stroke-width:2px
+    style M fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    style N fill:#FFF9C4,stroke:#F9A825,stroke-width:2px
+```
+
+**Diagram Explanation:**
+1. **User Flow:** Login → Search/Pin location → Submit review
+2. **Backend Flow:** Review goes through API → Database → AI microservices
+3. **Moderation:** Toxic reviews are flagged and hidden until approved
+4. **AI Services:**
+   - Sentiment Analysis → Heatmap update (Red/Green)
+   - Generative Summarization → Display AI-generated summary
+5. **End Result:** Users see a **color-coded heatmap** + **AI summary** for safety decision-making
+
+### ⚙️ Technologies
+- **Frontend:** React, Vite, React Leaflet, react-router-dom  
+- **Backend:** Node.js, Express.js  
+- **Database:** Firebase Firestore (NoSQL)  
+- **AI Microservices:** Python, FastAPI  
+- **Machine Learning:** Hugging Face Transformers, PyTorch, Scikit-learn  
+- **Authentication:** Firebase Authentication  
+- **Deployment (Planned):** Docker, Docker Compose, GitHub Actions, Google Cloud Run  
+
+---
+
+## 🏃 Getting Started
+
+### ✅ Prerequisites
+- Node.js (v20.11+ or v22.2+)  
+- Python (v3.8+)  
+- Firebase project with **Firestore + Authentication** enabled  
+
+### ⚡ Local Development Setup
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/YourUsername/sentinel-platform.git
+cd sentinel-platform
+```
+
+2. **Setup Backend**
+```bash
+cd backend
+npm install
+# Add Firebase serviceAccountKey.json to /src/config
+npm start
+```
+Backend runs at: **http://localhost:5000**
+
+3. **Setup AI Microservices**
+```bash
+cd services/<service_name>
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port <port_number>
+```
+- Sentiment Service → `:8000`  
+- Summarization Service → `:8001`  
+- Moderation Service → `:8002`
+
+4. **Setup Frontend**
+```bash
+cd frontend
+npm install
+# Add Firebase client config to src/firebase.js
+npm run dev
+```
+Frontend runs at: **http://localhost:5173**
+
+---
+
+## 🔮 Roadmap & Future Enhancements
+- **Proactive Safety Notifications:** Real-time alerts for low-safety areas.  
+- **Full Containerization:** Dockerize all services for consistent deployments.  
+- **CI/CD Pipeline:** GitHub Actions + Google Cloud Run deployment.  
+- **Community Integration:** Partner with local authorities and civic organizations.  
+
+---
+
+## 📂 Project Structure
+```
+sentinel-platform/
+│── backend/                # Node.js Express backend
+│── frontend/               # React + Vite frontend
+│── services/               # AI microservices
+│    ├── sentiment-inference/
+│    ├── summarization/
+│    └── moderation/
+│── docs/                   # System diagrams & documentation
+│── LICENSE
+│── README.md
+```
+
+---
+
+## 📜 License
+MIT License – see [LICENSE](./LICENSE)
+
+---
+
+## 🌟 Why Sentinel Stands Out
+- ✅ **Full-stack + AI/ML integration:** End-to-end implementation.  
+- ✅ **Real-world impact:** Crowd-sourced safety insights, moderated for reliability.  
+- ✅ **Portfolio-ready:** Demonstrates modern technologies, microservices, and cloud-readiness.  
+- ✅ **Social value:** Can be extended to government/public safety collaboration.  
+
+> _Sentinel is a working, production-like platform turning data into actionable safety intelligence._
+
