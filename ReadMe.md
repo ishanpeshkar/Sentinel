@@ -126,7 +126,7 @@ This project is under active development. Future phases will include:
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. -->
 
-# 🔐 Sentinel – AI-Powered Safety Heatmap Platform
+# 🔐 Sentinel – AI-Powered Crowdsourced Safety Heatmap Platform
 
 **Sentinel** is a **full-stack, microservice-based web application** that provides **real-time, crowd-sourced safety insights**. By combining **AI-driven sentiment analysis**, **Generative AI summaries**, and **dynamic geospatial visualization**, Sentinel empowers users to make **safer, smarter decisions** about their environment.
 
