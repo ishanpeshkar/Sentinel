@@ -1,4 +1,4 @@
-<!-- # Sentinel - AI-Powered Safety Heatmap Platform
+<!-- # Sentinel - AI-Powered Crowdsourced Safety Heatmap Platform
 
 **Sentinel** is a full-stack, microservice-based web application designed to provide real-time, crowd-sourced safety information. By leveraging AI for sentiment analysis and content moderation, Sentinel generates dynamic safety heatmaps, allowing users to make informed decisions about their environment.
 
