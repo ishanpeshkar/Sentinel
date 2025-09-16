@@ -128,18 +128,30 @@ based on microservices
 
 ## Possible Challenges :
 
-React leaflet works in react-17 version, and i generally use react 19 
+1. React leaflet works in react-17 version, and i generally use react 19 
 therefore i used "--legacy-peer-deps" with " react-leaflet-heatmap-layer-v3 "
 
 which makes it 
 "react-leaflet-heatmap-layer-v3 --legacy-peer-deps"
 
-
 what it does is 
 (--legacy-peer-deps): This flag tells npm, "I understand the risk. Behave like the older versions of npm and install it anyway, ignoring the peer dependency conflict."
 
 
+
+
+2. I have to start all the microservices servers manually and then the backend 
+at last the frontend.
+I must integrate all of it onto a common server. 
+
+
+
+
+3. Also i am using Leaflet library and it good for just frontend purpose but not scalable
+i must some day use API to fetch the MAP compnent like google maps API but it is costly. 
+
+
+
+
 So it may cause some problems movingforward while deploying. 
 till now none.
-
-

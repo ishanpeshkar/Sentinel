@@ -1,0 +1,51 @@
+- user logins to the site.
+- he/she searches for the location or pins it on the map. 
+- then provides the review like stars outoff 5 for that area and uses some prefilled promts along with some more info, if any. 
+
+- my sentiment-inference microservice based on ML analyses the sentiment and gives a sentiment score for this review from +1 to -1 . + = positive , - = negative. 
+
+- based on the sentiment score the map generates the heatmap over the map like green for positive and red fro negative. 
+
+- based on the review my gen Ai summarization microservice summarizes all the reviews and give an AI generated summary at the top for that choosen location. 
+
+- also included the moderation service which analyses the toxic reviews and automatically flags them into the status of pending_moderation and it will not be visible to the user unless the review is approved. as it is crowdsourced and a crowd can answer anything that they wish which may lead to some toxic comments
+
+- thats the overall idea of the project
+
+
+
+
+# Question : our "Sentinal" project is impressive. Walk me through the architecture. How did the microservices communicate with each other, and why did you choose a microservice architecture over a monolith for this application?
+
+# Answer : 
+Sentinel is basically a FullStack AI powered Crowdsourced safety heatmap project. in this project i have implemented robust backend that takes good care of the routing and handling errors. 
+Basically at first the user logs in to the website , they can search or pin point on the map location for which they want to submit the review, they can rate the place along with prefilled prompts and more info if they want. 
+
+now the frontend part is over, now starts the backend , the sentiment infernce microservice analyses the review and thus gives a sentiment score from +1to -1 and based on thsi review a heatmap generates omn the map. of the sentiment is towards the positive 1 then it shows green color else red. now comes my second microservice that is gen ai powered text summarization. it basically summarizes all the reviews and gives a proper summary . 
+this summary. 
+Also as it is a crowdsourced project then there can be a misuse of it as well. 
+so i added the moderation microservice that automatically flags of the toxic reviews and are not displayed on the frontend until flagged as approved. 
+
+also implemented the authentication and profile creation so that the user can see all theur reviews which are published 
+
+also added a functionalityb to upvote or downvote others review as well. 
+
+
+# FeedBack : 
+
+My Rating & Feedback on Your Answer:
+Rating: 7.5/10
+
+# The Good:
+You clearly explained the what – the different components (sentiment, summarization, moderation) and their high-level purpose.
+You correctly identified the business need for the moderation service ("misuse of it").
+You covered the user journey from login to seeing the heatmap.
+
+# The Areas for Improvement (The "So What?"):
+You didn't answer the "how" of communication. I specifically asked how the microservices communicated. Mentioning the technology (e.g., REST APIs, HTTP, gRPC) is crucial. This is a key technical detail an interviewer is listening for.
+
+**You didn't fully answer the "why". You listed what the services do, but not the architectural benefits of splitting them into microservices (e.g., independent scalability – the summarization service might need more GPU power; independent deployment; fault isolation – if the summarization service crashes, the sentiment analysis and heatmap still work).
+
+The explanation was a bit unstructured. A more structured approach (e.g., "The architecture consisted of four main microservices: API Gateway, Sentiment Service, Summarization Service, and Moderation Service. They communicated asynchronously via a message queue...") would sound more professional.
+
+Scope of Improvement: For your next answers, focus on being more technically specific about the implementation and rationale. Always try to directly answer the specific question asked.

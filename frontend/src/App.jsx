@@ -9,6 +9,9 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
 import ProfilePage from './pages/ProfilePage';
+import FeaturesPage from './pages/FeaturesPage';
+import AboutPage from './pages/AboutPage';
+import LocationDashboard from './pages/LocationDashboard';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/location/:locationName" element={<LocationDashboard />} />
           </Routes>
         </main>
       </AuthProvider>

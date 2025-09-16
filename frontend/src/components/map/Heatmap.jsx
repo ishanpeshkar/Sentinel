@@ -14,11 +14,11 @@ const MapEvents = ({ onMapClick }) => {
   return null;
 };
 
-const Heatmap = ({ onMapClick }) => {
-  const position = [51.505, -0.09]; // Default position (London)
-
+// Accept 'center' as a prop
+const Heatmap = ({ onMapClick, center }) => {
+  // Use the passed center prop for the MapContainer
   return (
-    <MapContainer center={position} zoom={13} scrollWheelZoom={true} className="heatmap-leaflet-container">
+    <MapContainer center={center} zoom={13} scrollWheelZoom={true} className="heatmap-leaflet-container">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

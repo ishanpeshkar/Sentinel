@@ -1,32 +1,30 @@
 import React from "react";
 import "./LandingPage.css";
 import SearchBar from "../components/SearchBar";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
+      {/* Hero Section */}
       <section className="hero-section">
+        <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1>Welcome to Sentinel</h1>
+          <h1>Sentinel</h1>
           <p>
-            Your AI-powered guide to neighborhood safety.
-            <br /> Search for a location to see its safety score or contribute
-            your own experiences.
+            Your AI-powered guide to neighborhood safety. <br />
+            Explore safety scores or share your experiences.
           </p>
           <SearchBar />
 
           <div className="cta-buttons">
-            {/* Use Link component for navigation */}
-            <Link to="/map" className="cta-primary">
-              View Safety Heatmap
-            </Link>
-            <Link to="/map" className="cta-secondary">
-              Submit a Review
-            </Link>
+            <Link to="/map" className="cta-primary">View Safety Heatmap</Link>
+            <Link to="/map" className="cta-secondary">Submit a Review</Link>
           </div>
         </div>
       </section>
+
+      {/* Features Section */}
       <section id="features" className="features-section">
         <h2>How It Works</h2>
         <div className="features-wrapper">
@@ -34,11 +32,7 @@ const LandingPage = () => {
             <div className="feature-icon">🗂️</div>
             <div className="feature-content">
               <h3>Crowd-Sourced Data</h3>
-              <p>
-                Real experiences from real people. We gather and analyze safety
-                reviews to provide a comprehensive and up-to-date understanding
-                of any area.
-              </p>
+              <p>Real experiences from real people. Gather and analyze safety reviews for any area.</p>
             </div>
           </div>
 
@@ -46,11 +40,7 @@ const LandingPage = () => {
             <div className="feature-icon">🤖</div>
             <div className="feature-content">
               <h3>AI-Powered Analysis</h3>
-              <p>
-                Our advanced AI models analyze sentiment, identify key safety
-                concerns, and generate an easy-to-understand safety score for
-                any location.
-              </p>
+              <p>Advanced AI identifies safety concerns and generates easy-to-understand scores.</p>
             </div>
           </div>
 
@@ -58,10 +48,7 @@ const LandingPage = () => {
             <div className="feature-icon">🌡️</div>
             <div className="feature-content">
               <h3>Interactive Heatmaps</h3>
-              <p>
-                Visualize safety trends with our dynamic heatmaps. Easily
-                identify safe zones and areas to be cautious of in any city.
-              </p>
+              <p>Visualize safety trends dynamically to spot safe zones or areas to avoid.</p>
             </div>
           </div>
         </div>
@@ -71,6 +58,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-
-

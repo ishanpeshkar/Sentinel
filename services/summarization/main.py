@@ -20,7 +20,7 @@ class ReviewList(BaseModel):
 try:
     logger.info("Loading summarization model...")
     # 'bart-large-cnn' is excellent for summarizing news-like text.
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    summarizer = pipeline("summarization", model="t5-base")
     logger.info("Model loaded successfully.")
 except Exception as e:
     logger.error(f"Failed to load model: {e}")

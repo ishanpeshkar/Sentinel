@@ -1,0 +1,136 @@
+/* Container */
+.review-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.6s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Error + Success messages */
+.form-error, .form-success {
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  animation: slideIn 0.4s ease-in-out;
+}
+
+.form-error {
+  background: #fcebea;
+  color: #d93025;
+  border-left: 4px solid #d93025;
+}
+
+.form-success {
+  background: #e6f9ed;
+  color: #1a7f37;
+  border-left: 4px solid #1a7f37;
+}
+
+/* Labels */
+.review-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Star Rating */
+.star-rating {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.star-rating span {
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.star-filled {
+  color: #f5a623;
+}
+
+.star-empty {
+  color: #ccc;
+}
+
+.star-rating span:hover {
+  transform: scale(1.2);
+  color: #ff9800;
+}
+
+/* Inputs + Select + Textarea */
+select,
+textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(90deg, #0056b3, #0096c7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.35);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

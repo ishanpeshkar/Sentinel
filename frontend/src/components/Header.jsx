@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 //import { FaUserCircle } from "react-icons/fa";
 import ShieldHeatmapLogo from './ShieldHeatmapLogo';
+
 // <-- add this
 
 const Header = () => {
@@ -25,10 +26,10 @@ const Header = () => {
             <Link to="/map">Heatmap</Link>
           </li>
           <li>
-            <a href="#features">Features</a>
+            <a href="/features">Features</a>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="/about">About</a>
           </li>
         </ul>
       </nav>

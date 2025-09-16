@@ -14,14 +14,10 @@ const ProfilePage = () => {
             try {
                 const token = await currentUser.getIdToken();
                 const response = await fetch('http://localhost:5000/api/reviews/my-reviews', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch reviews.');
-                }
+                if (!response.ok) throw new Error('Failed to fetch reviews.');
 
                 const data = await response.json();
                 setMyReviews(data);
@@ -36,30 +32,42 @@ const ProfilePage = () => {
     }, [currentUser]);
 
     if (isLoading) {
-        return <div className="profile-container"><p>Loading your reviews...</p></div>;
+        return (
+            <div className="profile-container">
+                <p className="loading-text">Loading your reviews...</p>
+            </div>
+        );
     }
 
     return (
         <div className="profile-container">
-            <h1>My Profile</h1>
-            <p className="user-email">Logged in as: {currentUser?.email}</p>
-            <hr />
-            <h2>My Submitted Reviews</h2>
-            <div className="my-reviews-list">
+            <div className="profile-header">
+                <h1>Welcome, {currentUser?.displayName || "User"}!</h1>
+                <p className="user-email">Logged in as: {currentUser?.email}</p>
+            </div>
+
+            <div className="reviews-section">
+                <h2>My Submitted Reviews</h2>
                 {myReviews.length === 0 ? (
-                    <p>You haven't submitted any reviews yet.</p>
+                    <p className="no-reviews">You haven't submitted any reviews yet. Start contributing to the community!</p>
                 ) : (
-                    myReviews.map(review => (
-                        <div key={review.id} className={`review-card-profile status-${review.status}`}>
-                            <div className="review-card-header">
-                                <span className="review-rating">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
-                                <span className="review-date">{new Date(review.createdAt).toLocaleDateString()}</span>
+                    <div className="reviews-grid">
+                        {myReviews.map(review => (
+                            <div key={review.id} className={`review-card status-${review.status}`}>
+                                <div className="review-header">
+                                    <span className="review-rating">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
+                                    <span className="review-date">{new Date(review.createdAt).toLocaleDateString()}</span>
+                                </div>
+                                <div className="review-body">
+                                    <p className="review-prompt">{review.prompt}</p>
+                                    {review.moreInfo && <p className="review-text">{review.moreInfo}</p>}
+                                </div>
+                                <div className="review-footer">
+                                    <span className={`review-status status-${review.status}`}>{review.status.replace('_', ' ')}</span>
+                                </div>
                             </div>
-                            <p className="review-prompt">{review.prompt}</p>
-                            {review.moreInfo && <p className="review-text">{review.moreInfo}</p>}
-                            <div className="review-status">Status: <span>{review.status.replace('_', ' ')}</span></div>
-                        </div>
-                    ))
+                        ))}
+                    </div>
                 )}
             </div>
         </div>

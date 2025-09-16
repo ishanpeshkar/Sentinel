@@ -20,7 +20,7 @@ try:
     # This model is robust and provides clear labels.
     toxicity_classifier = pipeline(
         "text-classification",
-        model="unitary/toxic-bert"
+        model="martin-ha/toxic-comment-model"
     )
     logger.info("Model loaded successfully.")
 except Exception as e:

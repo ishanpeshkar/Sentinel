@@ -1,175 +1,202 @@
 .review-panel {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--background-light-gray);
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
+/* ---------------- HEADER ---------------- */
 .panel-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--accent-calm-gray);
-    background-color: var(--white-color);
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--accent-calm-gray);
+  background: linear-gradient(135deg, #ffffff, #f7faff);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .panel-header h2 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.5rem;
+  margin: 0 0 0.4rem 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-deep-blue);
 }
 
 .panel-header p {
-    margin: 0;
-    color: var(--text-light-gray);
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-light-gray);
 }
 
-.review-list {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 1rem;
-    background-color: var(--background-light-gray);
-}
-
-.review-card {
-    background: var(--white-color);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow-light);
-}
-
-.review-rating {
-    font-size: 1.2rem;
-    color: #f0c419; /* Gold color for stars */
-    margin-bottom: 0.5rem;
-}
-
-.review-prompt {
-    font-weight: bold;
-    color: var(--primary-deep-blue);
-    margin-bottom: 0.5rem;
-    background-color: #e7f0f7;
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-}
-
-.review-text {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-}
-
-.review-actions button {
-    background: none;
-    border: 1px solid var(--accent-calm-gray);
-    border-radius: 15px;
-    padding: 0.25rem 0.75rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.review-actions button:hover {
-    background-color: #f0f0f0;
-}
-
-/* ... existing styles for .review-actions button ... */
-.review-actions .vote-btn {
-    background: none;
-    border: 1px solid var(--accent-calm-gray);
-    border-radius: 15px;
-    padding: 0.25rem 0.75rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.review-actions .vote-btn:hover {
-    background-color: #f0f0f0;
-    border-color: #bbb;
-}
-
-/* This is the new style for an active vote */
-.review-actions .vote-btn.active {
-    background-color: var(--primary-deep-blue);
-    color: var(--white-color);
-    border-color: var(--primary-deep-blue);
-}
-
-.review-submission-area {
-    padding: 1.5rem;
-    background: var(--white-color);
-    border-top: 1px solid var(--accent-calm-gray);
-    text-align: center;
-}
-
-.review-submission-area h3 {
-    margin-top: 0;
-}
-
-.login-prompt .login-btn,
-.login-prompt .signup-btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0.5rem;
-  transition: background-color 0.3s ease;
-}
-
-.login-prompt .login-btn {
-  background-color: transparent;
-  color: var(--primary-deep-blue);
-  border: 2px solid var(--primary-deep-blue);
-}
-
-.login-prompt .login-btn:hover {
-  background-color: var(--primary-deep-blue);
-  color: var(--white-color);
-}
-
-.login-prompt .signup-btn {
-  background-color: var(--primary-deep-blue);
-  color: var(--white-color);
-}
-
-.login-prompt .signup-btn:hover {
-  opacity: 0.9;
-}
-
-.add-review-btn {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--white-color);
-    background-color: var(--primary-deep-blue);
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-review-btn:hover {
-    opacity: 0.9;
-}
-
+/* ---------------- SUMMARY ---------------- */
 .summary-section {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--accent-calm-gray);
-    background-color: #e7f0f7; /* A light blue to stand out */
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--accent-calm-gray);
+  background: #e7f0f7;
+  border-left: 4px solid var(--primary-deep-blue);
+  animation: slideIn 0.4s ease-in-out;
 }
 
 .summary-section h4 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: var(--primary-deep-blue);
-    font-family: var(--font-family-headings);
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-deep-blue);
 }
 
-.summary-text {
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--text-dark-gray);
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+.summary-text,
+.loading-text,
+.no-reviews-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-dark-gray);
+}
+
+/* ---------------- REVIEW LIST ---------------- */
+.review-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.2rem;
+}
+
+/* Card effect */
+.review-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* Stars */
+.review-rating {
+  font-size: 1.3rem;
+  color: #f5a623;
+  margin-bottom: 0.4rem;
+}
+
+/* Prompt tag */
+.review-prompt {
+  font-weight: 600;
+  color: var(--primary-deep-blue);
+  margin-bottom: 0.5rem;
+  background: #e7f0f7;
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.review-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  color: var(--text-dark-gray);
+}
+
+/* ---------------- ACTIONS ---------------- */
+.review-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-actions .vote-btn {
+  border: 1px solid var(--accent-calm-gray);
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  margin-right: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.review-actions .vote-btn:hover {
+  background: #f0f4f8;
+  border-color: #bbb;
+}
+
+.review-actions .vote-btn.active {
+  background: var(--primary-deep-blue);
+  color: var(--white-color);
+  border-color: var(--primary-deep-blue);
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: var(--text-light-gray);
+}
+
+/* ---------------- SUBMISSION ---------------- */
+.review-submission-area {
+  padding: 1.5rem;
+  background: #fff;
+  border-top: 1px solid var(--accent-calm-gray);
+  text-align: center;
+}
+
+.add-review-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white-color);
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-review-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
+}
+
+/* ---------------- LOGIN PROMPT ---------------- */
+.login-prompt {
+  font-size: 0.95rem;
+  color: var(--text-dark-gray);
+}
+
+.login-prompt .login-btn-prompt {
+  display: inline-block;
+  margin-top: 0.7rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--border-radius);
+  background: var(--primary-deep-blue);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.login-prompt .login-btn-prompt:hover {
+  background: #004080;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
