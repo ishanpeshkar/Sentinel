@@ -187,40 +187,86 @@ Sentinel was built to **bridge the gap between technology and community safety**
 ## 🛠 Architecture & Tech Stack
 
 ### 🔗 System Architecture (Microservices)
-```mermaid
+---
+config:
+  theme: redux
+  look: neo
+  layout: dagre
+---
 flowchart TD
-    subgraph USER
-        A[Login / Register] --> B[Search or Pin Location on Map]
-        B --> C[Submit Review (Stars + Comments + Pre-filled Prompts)]
+ subgraph USER["👤 USER"]
+        A["🔑 Login / Register"]
+        B["🌍 Search or Pin Location"]
+        C["📝 Submit Review (Stars + Comments)"]
+  end
+ subgraph BACKEND["🖥️ BACKEND"]
+        D["⚡ Node.js API + Express"]
+        E["🗄️ Firestore Database"]
+        F["🛡️ Moderation Service (FastAPI + Toxicity Detection)"]
+        G["🤖 Sentiment Service (FastAPI + ML Model)"]
+        H["🧠 Summarization Service (FastAPI + Gen AI)"]
     end
+    %% Flows
+    A --> B --> C
+    C ==> D
+    D --> E & F & G & H
 
-    subgraph BACKEND
-        C --> D[Backend API: Node.js + Express]
-        D --> E[Firebase Firestore (Save Review & User Data)]
-        D --> F[Moderation Service: FastAPI + Toxicity Detection]
-        D --> G[Sentiment Analysis Service: FastAPI + ML Model]
-        D --> H[Summarization Service: FastAPI + Gen AI]
-    end
+    %% Moderation Path
+    F --> I{"☢️ Toxic?"}
+    I -- Yes --> J["🚫 Flag as pending_moderation"]
+    I -- No --> K["✅ Publish Review"]
 
-    F --> I{Toxic?}
-    I -- Yes --> J[Flag as pending_moderation → Not visible to public]
-    I -- No --> K[Approved & Visible]
+    %% Sentiment + Summary
+    G --> L["📊 Generate Sentiment Score"]
+    L --> M["🟢 Safe / 🔴 Unsafe Heatmap Update"]
+    H --> N["📝 AI-Generated Safety Summary"]
+    B@{ shape: rounded}
+    A@{ shape: rounded}
+    C@{ shape: rounded}
+    D@{ shape: terminal}
+    E@{ shape: rounded}
+    F@{ shape: rounded}
+    G@{ shape: rounded}
+    H@{ shape: rounded}
+    J@{ shape: rounded}
+    K@{ shape: rounded}
+    L@{ shape: rounded}
+    M@{ shape: rounded}
+    N@{ shape: rounded}
+    style B fill:#BBDEFB
+    style A fill:#BBDEFB
+    style C fill:#BBDEFB
+    style D stroke:#2962FF,fill:#BBDEFB
+    style E fill:#BBDEFB
+    style F fill:#BBDEFB
+    style G fill:#BBDEFB
+    style H fill:#BBDEFB
+    style I fill:#BBDEFB,stroke:#AA00FF,stroke-width:2px,stroke-dasharray: 0
+    style J fill:#BBDEFB,stroke:#AA00FF
+    style K fill:#BBDEFB,stroke:#AA00FF
+    style L fill:#BBDEFB,stroke:#AA00FF,stroke-width:2px,stroke-dasharray: 0
+    style M fill:#BBDEFB,stroke:#AA00FF
+    style N fill:#BBDEFB,stroke:#AA00FF,stroke-width:2px,stroke-dasharray: 0
+    style USER stroke:#AA00FF,color:#000000,fill:#E1BEE7
+    style BACKEND stroke:#AA00FF,fill:#E1BEE7
+    linkStyle 0 stroke:#2962FF,fill:none
+    linkStyle 1 stroke:#2962FF,fill:none
+    linkStyle 2 stroke:#2962FF,fill:none
+    linkStyle 3 stroke:#2962FF,fill:none
+    linkStyle 4 stroke:#2962FF,fill:none
+    linkStyle 5 stroke:#2962FF,fill:none
+    linkStyle 6 stroke:#2962FF,fill:none
+    linkStyle 7 stroke:#2962FF,fill:none
+    linkStyle 8 stroke:#2962FF,fill:none
+    linkStyle 9 stroke:#2962FF,fill:none
+    linkStyle 10 stroke:#2962FF,fill:none
+    linkStyle 11 stroke:#2962FF,fill:none
+    linkStyle 12 stroke:#2962FF,fill:none
+    L_C_D_0@{ animation: fast } 
+    L_F_I_0@{ animation: none } 
+    L_G_L_0@{ animation: none } 
+    L_H_N_0@{ animation: none }
 
-    G --> L[Generate Sentiment Score (-1 to +1)]
-    L --> M[Update Heatmap (Green = Positive, Red = Negative)]
-
-    H --> N[Generate AI Summary for Location]
-    
-    style A fill:#E3F2FD,stroke:#42A5F5,stroke-width:2px
-    style B fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px
-    style C fill:#E8F5E9,stroke:#43A047,stroke-width:2px
-    style D fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px
-    style F fill:#FFEBEE,stroke:#E53935,stroke-width:2px
-    style G fill:#E1F5FE,stroke:#039BE5,stroke-width:2px
-    style H fill:#FFFDE7,stroke:#FDD835,stroke-width:2px
-    style M fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
-    style N fill:#FFF9C4,stroke:#F9A825,stroke-width:2px
-```
 
 **Diagram Explanation:**
 1. **User Flow:** Login → Search/Pin location → Submit review
