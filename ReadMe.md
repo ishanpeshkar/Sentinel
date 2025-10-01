@@ -122,6 +122,10 @@ This project is under active development. Future phases will include:
 
 ---
 
+
+
+
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. -->
@@ -183,92 +187,6 @@ Sentinel was built to **bridge the gap between technology and community safety**
 - **Upvote/Downvote system** to highlight helpful reviews.
 
 ---
-
-## 🛠 Architecture & Tech Stack
-
-<!--
-### 🔗 System Architecture (Microservices)
-
----
-config:
-  theme: redux
-  look: neo
-  layout: dagre
----
-flowchart TD
- subgraph USER["👤 USER"]
-        A["🔑 Login / Register"]
-        B["🌍 Search or Pin Location"]
-        C["📝 Submit Review (Stars + Comments)"]
-  end
- subgraph BACKEND["🖥️ BACKEND"]
-        D["⚡ Node.js API + Express"]
-        E["🗄️ Firestore Database"]
-        F["🛡️ Moderation Service (FastAPI + Toxicity Detection)"]
-        G["🤖 Sentiment Service (FastAPI + ML Model)"]
-        H["🧠 Summarization Service (FastAPI + Gen AI)"]
-    end
-    %% Flows
-    A --> B --> C
-    C ==> D
-    D --> E & F & G & H
-
-    %% Moderation Path
-    F --> I{"☢️ Toxic?"}
-    I -- Yes --> J["🚫 Flag as pending_moderation"]
-    I -- No --> K["✅ Publish Review"]
-
-    %% Sentiment + Summary
-    G --> L["📊 Generate Sentiment Score"]
-    L --> M["🟢 Safe / 🔴 Unsafe Heatmap Update"]
-    H --> N["📝 AI-Generated Safety Summary"]
-    B@{ shape: rounded}
-    A@{ shape: rounded}
-    C@{ shape: rounded}
-    D@{ shape: terminal}
-    E@{ shape: rounded}
-    F@{ shape: rounded}
-    G@{ shape: rounded}
-    H@{ shape: rounded}
-    J@{ shape: rounded}
-    K@{ shape: rounded}
-    L@{ shape: rounded}
-    M@{ shape: rounded}
-    N@{ shape: rounded}
-    style B fill:#BBDEFB
-    style A fill:#BBDEFB
-    style C fill:#BBDEFB
-    style D stroke:#2962FF,fill:#BBDEFB
-    style E fill:#BBDEFB
-    style F fill:#BBDEFB
-    style G fill:#BBDEFB
-    style H fill:#BBDEFB
-    style I fill:#BBDEFB,stroke:#AA00FF,stroke-width:2px,stroke-dasharray: 0
-    style J fill:#BBDEFB,stroke:#AA00FF
-    style K fill:#BBDEFB,stroke:#AA00FF
-    style L fill:#BBDEFB,stroke:#AA00FF,stroke-width:2px,stroke-dasharray: 0
-    style M fill:#BBDEFB,stroke:#AA00FF
-    style N fill:#BBDEFB,stroke:#AA00FF,stroke-width:2px,stroke-dasharray: 0
-    style USER stroke:#AA00FF,color:#000000,fill:#E1BEE7
-    style BACKEND stroke:#AA00FF,fill:#E1BEE7
-    linkStyle 0 stroke:#2962FF,fill:none
-    linkStyle 1 stroke:#2962FF,fill:none
-    linkStyle 2 stroke:#2962FF,fill:none
-    linkStyle 3 stroke:#2962FF,fill:none
-    linkStyle 4 stroke:#2962FF,fill:none
-    linkStyle 5 stroke:#2962FF,fill:none
-    linkStyle 6 stroke:#2962FF,fill:none
-    linkStyle 7 stroke:#2962FF,fill:none
-    linkStyle 8 stroke:#2962FF,fill:none
-    linkStyle 9 stroke:#2962FF,fill:none
-    linkStyle 10 stroke:#2962FF,fill:none
-    linkStyle 11 stroke:#2962FF,fill:none
-    linkStyle 12 stroke:#2962FF,fill:none
-    L_C_D_0@{ animation: fast } 
-    L_F_I_0@{ animation: none } 
-    L_G_L_0@{ animation: none } 
-    L_H_N_0@{ animation: none } 
--->
 
 
     ## 🔗 System Architecture
