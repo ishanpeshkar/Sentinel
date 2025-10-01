@@ -186,7 +186,9 @@ Sentinel was built to **bridge the gap between technology and community safety**
 
 ## 🛠 Architecture & Tech Stack
 
+<!--
 ### 🔗 System Architecture (Microservices)
+
 ---
 config:
   theme: redux
@@ -265,7 +267,13 @@ flowchart TD
     L_C_D_0@{ animation: fast } 
     L_F_I_0@{ animation: none } 
     L_G_L_0@{ animation: none } 
-    L_H_N_0@{ animation: none }
+    L_H_N_0@{ animation: none } 
+-->
+
+
+    ## 🔗 System Architecture
+![System Architecture](docs/WorkflowSystemArchitecture.png)
+
 
 
 **Diagram Explanation:**
